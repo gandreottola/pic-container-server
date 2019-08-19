@@ -1,4 +1,3 @@
-
 # Chicken Pix: An Image Hosting Application
 
 ### Deployed Link
@@ -119,6 +118,7 @@ Notes/Images from Scrum meetings:
 
 [wfp8]: https://user-images.githubusercontent.com/25508215/62913842-bc47b380-bd5b-11e9-96e3-04cd43f31782.png
 
+
 ### ROUTING:
 ##### User-Routes
 - post - sign-up
@@ -133,15 +133,6 @@ Notes/Images from Scrum meetings:
 - post - create/upload new image - create
 - patch - change image name / tags - update
 - delete - delete an image - destroy
-
-##### Catalog of Routes
-| Method | Path |
-|-------|:----------|
-|GET   | /images/:id  |
-|POST   |  /images |
-|INDEX   |  /images |
-|DELETE   | /images/:id  |
-|PATCH   | /images/:id  |
 
 ## Unresolved issues / features for future release
 
@@ -185,6 +176,7 @@ Notes/Images from Scrum meetings:
   - Multer
   - AWS-SDK
   - NPM Server
+
 
 ## Acknowledgments
 This project is built as the result of participating in General Assembly Boston's Software Engineering Immersive course.
