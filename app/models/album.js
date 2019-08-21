@@ -1,21 +1,13 @@
 const mongoose = require('mongoose')
 
-const imageSchema = new mongoose.Schema({
+const albumSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
   },
-  tag: {
-    type: [String],
-    required: true
-  },
-  url: {
-    type: String,
-    required: true
-  },
-  album: {
+  image: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Album'
+    ref: 'Image'
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
@@ -26,4 +18,4 @@ const imageSchema = new mongoose.Schema({
   timestamps: true
 })
 
-module.exports = mongoose.model('Image', imageSchema)
+module.exports = mongoose.model('Album', albumSchema)
