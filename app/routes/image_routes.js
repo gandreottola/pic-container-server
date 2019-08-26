@@ -47,6 +47,7 @@ router.post('/images', upload.single('file'), (req, res, next) => {
       return ImageUpload.create({
         url: awsRes.Location,
         name: imageName,
+        album: req.body.album,
         owner: req.body.owner,
         type: req.file.mimetype,
         tag: tagsArray
