@@ -74,24 +74,43 @@ router.post('/albums', requireToken, (req, res, next) => {
 // UPDATE
 // PATCH /albums/5a7db6c74d55bc51bdf39793
 router.patch('/albums/:id', requireToken, removeBlanks, (req, res, next) => {
+  // pass if only req.body is an epmty object
+  if (req.body.album === undefined) {
+    req.body = {
+      album: {
+        images: []
+      }
+    }
+    Album.findById(req.params.id)
+      .then(handle404)
+      .then(album => {
+        requireOwnership(req, album)
+
+        return album.update(req.body.album)
+      })
+      // if that succeeded, return 204 and no JSON
+      .then(() => res.sendStatus(204))
+      .catch(next)
+  } else {
   // if the client attempts to change the `owner` property by including a new
   // owner, prevent that by deleting that key/value pair
-  delete req.body.album.owner
+    delete req.body.album.owner
 
-  Album.findById(req.params.id)
-    .then(handle404)
-    .then(album => {
+    Album.findById(req.params.id)
+      .then(handle404)
+      .then(album => {
       // pass the `req` object and the Mongoose record to `requireOwnership`
       // it will throw an error if the current user isn't the owner
-      requireOwnership(req, album)
+        requireOwnership(req, album)
 
-      // pass the result of Mongoose's `.update` to the next `.then`
-      return album.update(req.body.album)
-    })
+        // pass the result of Mongoose's `.update` to the next `.then`
+        return album.update(req.body.album)
+      })
     // if that succeeded, return 204 and no JSON
-    .then(() => res.sendStatus(204))
+      .then(() => res.sendStatus(204))
     // if an error occurs, pass it to the handler
-    .catch(next)
+      .catch(next)
+  }
 })
 
 // DESTROY
@@ -102,6 +121,7 @@ router.delete('/albums/:id', requireToken, (req, res, next) => {
     .then(album => {
       // throw an error if current user doesn't own `album`
       requireOwnership(req, album)
+
       // delete the album ONLY IF the above didn't throw
       album.remove()
     })
