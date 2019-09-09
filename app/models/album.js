@@ -6,7 +6,7 @@ const albumSchema = new mongoose.Schema({
     required: true
   },
   images: {
-    type: []
+    type: Array
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
